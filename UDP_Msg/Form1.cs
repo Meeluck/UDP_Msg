@@ -126,11 +126,11 @@ namespace UDP_Msg
 						if(message.EndsWith("вошел в чат"))
 						{
 							string time = DateTime.Now.ToShortTimeString();
-							chatTextBox.Text = time + " | " + remoteIp.Address.ToString() + " | " + message + "\r\n";
+							chatTextBox.AppendText(time + " | " + remoteIp.Address.ToString() + " | " + message + "\r\n");
 							if (remoteIp.Address.ToString() != _localIp) // для новых пользователей отправляем свой открытый ключ
 								SendOpenKey();
 						}
-						if(message.EndsWith("покидает чат"))
+						else if(message.EndsWith("покидает чат"))
 						{
 							_contacts.Remove(remoteIp.Address);
 							string time = DateTime.Now.ToShortTimeString();
@@ -312,6 +312,11 @@ namespace UDP_Msg
 		private void label2_Click(object sender, EventArgs e)
 		{
 
+		}
+
+		private void logoutButton_Click_1(object sender, EventArgs e)
+		{
+			ExitChat();
 		}
 	}
 }

@@ -76,6 +76,7 @@
 			this.logoutButton.TabIndex = 3;
 			this.logoutButton.Text = "Выход";
 			this.logoutButton.UseVisualStyleBackColor = true;
+			this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click_1);
 			// 
 			// chatTextBox
 			// 
