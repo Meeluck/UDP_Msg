@@ -35,19 +35,23 @@
 			this.chatTextBox = new System.Windows.Forms.TextBox();
 			this.messageTextBox = new System.Windows.Forms.TextBox();
 			this.sendButton = new System.Windows.Forms.Button();
+			this.privateKeyTextBox = new System.Windows.Forms.TextBox();
+			this.publicKeyTextBox = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// userNameTextBox
 			// 
-			this.userNameTextBox.Location = new System.Drawing.Point(236, 45);
+			this.userNameTextBox.Location = new System.Drawing.Point(172, 24);
 			this.userNameTextBox.Name = "userNameTextBox";
-			this.userNameTextBox.Size = new System.Drawing.Size(164, 20);
+			this.userNameTextBox.Size = new System.Drawing.Size(295, 20);
 			this.userNameTextBox.TabIndex = 0;
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(88, 45);
+			this.label1.Location = new System.Drawing.Point(73, 24);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(72, 13);
 			this.label1.TabIndex = 1;
@@ -56,7 +60,7 @@
 			// 
 			// loginButton
 			// 
-			this.loginButton.Location = new System.Drawing.Point(461, 35);
+			this.loginButton.Location = new System.Drawing.Point(495, 19);
 			this.loginButton.Name = "loginButton";
 			this.loginButton.Size = new System.Drawing.Size(75, 23);
 			this.loginButton.TabIndex = 2;
@@ -66,7 +70,7 @@
 			// 
 			// logoutButton
 			// 
-			this.logoutButton.Location = new System.Drawing.Point(461, 64);
+			this.logoutButton.Location = new System.Drawing.Point(495, 48);
 			this.logoutButton.Name = "logoutButton";
 			this.logoutButton.Size = new System.Drawing.Size(75, 23);
 			this.logoutButton.TabIndex = 3;
@@ -75,24 +79,24 @@
 			// 
 			// chatTextBox
 			// 
-			this.chatTextBox.Location = new System.Drawing.Point(91, 103);
+			this.chatTextBox.Location = new System.Drawing.Point(76, 191);
 			this.chatTextBox.Multiline = true;
 			this.chatTextBox.Name = "chatTextBox";
 			this.chatTextBox.ReadOnly = true;
-			this.chatTextBox.Size = new System.Drawing.Size(445, 209);
+			this.chatTextBox.Size = new System.Drawing.Size(494, 193);
 			this.chatTextBox.TabIndex = 4;
 			// 
 			// messageTextBox
 			// 
-			this.messageTextBox.Location = new System.Drawing.Point(91, 345);
+			this.messageTextBox.Location = new System.Drawing.Point(76, 417);
 			this.messageTextBox.Multiline = true;
 			this.messageTextBox.Name = "messageTextBox";
-			this.messageTextBox.Size = new System.Drawing.Size(309, 51);
+			this.messageTextBox.Size = new System.Drawing.Size(391, 51);
 			this.messageTextBox.TabIndex = 5;
 			// 
 			// sendButton
 			// 
-			this.sendButton.Location = new System.Drawing.Point(461, 345);
+			this.sendButton.Location = new System.Drawing.Point(495, 417);
 			this.sendButton.Name = "sendButton";
 			this.sendButton.Size = new System.Drawing.Size(75, 51);
 			this.sendButton.TabIndex = 6;
@@ -100,11 +104,52 @@
 			this.sendButton.UseVisualStyleBackColor = true;
 			this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
 			// 
+			// privateKeyTextBox
+			// 
+			this.privateKeyTextBox.Location = new System.Drawing.Point(172, 85);
+			this.privateKeyTextBox.Multiline = true;
+			this.privateKeyTextBox.Name = "privateKeyTextBox";
+			this.privateKeyTextBox.ReadOnly = true;
+			this.privateKeyTextBox.Size = new System.Drawing.Size(398, 40);
+			this.privateKeyTextBox.TabIndex = 7;
+			// 
+			// publicKeyTextBox
+			// 
+			this.publicKeyTextBox.Location = new System.Drawing.Point(172, 143);
+			this.publicKeyTextBox.Multiline = true;
+			this.publicKeyTextBox.Name = "publicKeyTextBox";
+			this.publicKeyTextBox.ReadOnly = true;
+			this.publicKeyTextBox.Size = new System.Drawing.Size(398, 40);
+			this.publicKeyTextBox.TabIndex = 8;
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(73, 85);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(87, 13);
+			this.label2.TabIndex = 9;
+			this.label2.Text = "Закрытый ключ";
+			this.label2.Click += new System.EventHandler(this.label2_Click);
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(73, 143);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(87, 13);
+			this.label3.TabIndex = 10;
+			this.label3.Text = "Открытый ключ";
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(657, 450);
+			this.ClientSize = new System.Drawing.Size(645, 508);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.publicKeyTextBox);
+			this.Controls.Add(this.privateKeyTextBox);
 			this.Controls.Add(this.sendButton);
 			this.Controls.Add(this.messageTextBox);
 			this.Controls.Add(this.chatTextBox);
@@ -128,6 +173,10 @@
 		private System.Windows.Forms.TextBox chatTextBox;
 		private System.Windows.Forms.TextBox messageTextBox;
 		private System.Windows.Forms.Button sendButton;
+		private System.Windows.Forms.TextBox privateKeyTextBox;
+		private System.Windows.Forms.TextBox publicKeyTextBox;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label label3;
 	}
 }
 
