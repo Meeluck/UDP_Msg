@@ -124,14 +124,14 @@ namespace UDP_Msg
 					// добавляем полученное сообщение в текстовое поле
 					this.Invoke(new MethodInvoker(() =>
 					{
-						if(message.EndsWith("вошел в чат"))
+						if (message.EndsWith("вошел в чат"))
 						{
 							string time = DateTime.Now.ToShortTimeString();
 							chatTextBox.AppendText(time + " | " + remoteIp.Address.ToString() + " | " + message + "\r\n");
 							if (remoteIp.Address.ToString() != _localIp) // для новых пользователей отправляем свой открытый ключ
 								SendOpenKey();
 						}
-						else if(message.EndsWith("покидает чат"))
+						else if (message.EndsWith("покидает чат")) 
 						{
 							_contacts.Remove(remoteIp.Address);
 							string time = DateTime.Now.ToShortTimeString();
@@ -142,7 +142,8 @@ namespace UDP_Msg
 						{
 							_contacts[remoteIp.Address] = data;
 							string time = DateTime.Now.ToShortTimeString();
-							chatTextBox.AppendText(time + " | " + $"Получен ключ({data.Length}) от: " + remoteIp.Address.ToString() + "\r\n");
+							if (remoteIp.Address.ToString() != _localIp) 
+								chatTextBox.AppendText(time + " | " + $"Получен ключ от: " + remoteIp.Address.ToString() + "\r\n");
 						}
 					}));
 				}
