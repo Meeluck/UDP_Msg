@@ -131,7 +131,7 @@ namespace UDP_Msg
 							if (remoteIp.Address.ToString() != _localIp) // для новых пользователей отправляем свой открытый ключ
 								SendOpenKey();
 						}
-						else if (message.EndsWith("покидает чат")) 
+						else if (message.EndsWith("покидает чат"))
 						{
 							_contacts.Remove(remoteIp.Address);
 							string time = DateTime.Now.ToShortTimeString();
@@ -142,8 +142,8 @@ namespace UDP_Msg
 						{
 							_contacts[remoteIp.Address] = data;
 							string time = DateTime.Now.ToShortTimeString();
-							if (remoteIp.Address.ToString() != _localIp) 
-								chatTextBox.AppendText(time + " | " + $"Получен ключ от: " + remoteIp.Address.ToString() + "\r\n");
+							chatTextBox.AppendText(time + " | " + $"Получен ключ от: " + remoteIp.Address.ToString() + "\r\n");
+						
 						}
 					}));
 				}
