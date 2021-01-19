@@ -13,7 +13,7 @@ namespace UDP_Msg
 {
 	public partial class Form1 : Form
 	{
-		bool alive = false; // будет ли работать поток для приема
+		bool _alive = false; // будет ли работать поток для приема
 		UdpClient _client;
 		UdpClient _encClient;
 		const int _localPort = 8001; // порт для приема сообщений
@@ -96,7 +96,8 @@ namespace UDP_Msg
 		void SendOpenKey()
 		{
 			_rsaKeyParameters = _rsa_For_Decr.ExportParameters(false); // только открытые параметры
-			List<byte> exponent = new List<byte>(_rsaKeyParameters.Exponent);
+			//объединяем параметры открытого ключа в один массив для передачи другим участникам
+			List<byte> exponent = new List<byte>(_rsaKeyParameters.Exponent); 
 			List<byte> moduls = new List<byte>(_rsaKeyParameters.Modulus);
 			exponent.AddRange(moduls);
 			byte[] data = exponent.ToArray();
@@ -111,10 +112,10 @@ namespace UDP_Msg
 		/// </summary>
 		private void ReceiveMessages()
 		{
-			alive = true;
+			_alive = true;
 			try
 			{
-				while (alive)
+				while (_alive)
 				{
 					IPEndPoint remoteIp = null;
 					byte[] data = _client.Receive(ref remoteIp);
@@ -148,7 +149,7 @@ namespace UDP_Msg
 			}
 			catch (ObjectDisposedException)
 			{
-				if (!alive)
+				if (!_alive)
 					return;
 				throw;
 			}
@@ -160,10 +161,10 @@ namespace UDP_Msg
 
 		private void ReceiveMessagesEnc()
 		{
-			alive = true;
+			_alive = true;
 			try
 			{
-				while (alive)
+				while (_alive)
 				{
 					IPEndPoint remoteIp = null;
 					byte[] data = _encClient.Receive(ref remoteIp); // прием зашифрованных сообщений
@@ -174,25 +175,24 @@ namespace UDP_Msg
 						//Получаем зашифрованное сообщение, выводим исходное и расшифрованное
 						string time = DateTime.Now.ToShortTimeString();
 
-						chatTextBox.AppendText(time + " | " + remoteIp.Address.ToString() + " |Исходное| " + message + "\r\n");
+						chatTextBox.AppendText(time +" | Исходное : " + message + "\r\n");
 
 						data = RSADecrypt(data, _rsa_For_Decr.ExportParameters(true), false);
 						message = Encoding.Unicode.GetString(data);
-						chatTextBox.AppendText(time + " | " + remoteIp.Address.ToString() + " |Расшифрованное| " + message + "\r\n");
-
+						chatTextBox.AppendText(time + " | Расшифрованное : " + message + "\r\n");
 					}));
 
 				}
 			}
 			catch (ObjectDisposedException)
 			{
-				if (!alive)
+				if (!_alive)
 					return;
 				throw;
 			}
 			catch (SocketException)
 			{
-				if (!alive)
+				if (!_alive)
 					return;
 				throw;
 			}
@@ -207,15 +207,19 @@ namespace UDP_Msg
 			{
 				
 				string message = String.Format("{0}: {1}", _userName, messageTextBox.Text);
+				//отправка сообщений всем участникам чата
 				foreach (var item in _contacts)
 				{
-					Console.WriteLine(item.Key + " - " + item.Value);
 					byte[] data = Encoding.Unicode.GetBytes(message);
+
 					_rsaKeyParameters = _rsa_For_Encr.ExportParameters(false);
+					//извлекаем полученного открытого ключа
 					_rsaKeyParameters.Exponent = item.Value.Take(3).ToArray();
 					_rsaKeyParameters.Modulus = item.Value.Skip(3).ToArray();
 					_rsa_For_Encr.ImportParameters(_rsaKeyParameters);
+					//шифруем
 					data = RSAEncrypt(data, _rsa_For_Encr.ExportParameters(false), false);
+					//отправляем
 					_encClient.Send(data, data.Length, item.Key.ToString(), _remoteEncPort);
 				}
 			}
@@ -234,10 +238,11 @@ namespace UDP_Msg
 		{
 			string message = _userName + " покидает чат";
 			byte[] data = Encoding.Unicode.GetBytes(message);
+			//сообщаем всем участникам, что пользователь покидает чат
 			_client.Send(data, data.Length, _host, _remotePort);
 			_client.DropMulticastGroup(_groupAddress);
-
-			alive = false;
+			_alive = false;
+			//закрываем соединения
 			_encClient.Close();
 			_client.Close();
 
@@ -248,7 +253,7 @@ namespace UDP_Msg
 		// обработчик события закрытия формы
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			if (alive)
+			if (_alive)
 				ExitChat();
 		}
 
