@@ -84,12 +84,13 @@
 			this.chatTextBox.Multiline = true;
 			this.chatTextBox.Name = "chatTextBox";
 			this.chatTextBox.ReadOnly = true;
-			this.chatTextBox.Size = new System.Drawing.Size(494, 193);
+			this.chatTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.chatTextBox.Size = new System.Drawing.Size(494, 253);
 			this.chatTextBox.TabIndex = 4;
 			// 
 			// messageTextBox
 			// 
-			this.messageTextBox.Location = new System.Drawing.Point(76, 417);
+			this.messageTextBox.Location = new System.Drawing.Point(76, 450);
 			this.messageTextBox.Multiline = true;
 			this.messageTextBox.Name = "messageTextBox";
 			this.messageTextBox.Size = new System.Drawing.Size(391, 51);
@@ -97,7 +98,7 @@
 			// 
 			// sendButton
 			// 
-			this.sendButton.Location = new System.Drawing.Point(495, 417);
+			this.sendButton.Location = new System.Drawing.Point(495, 450);
 			this.sendButton.Name = "sendButton";
 			this.sendButton.Size = new System.Drawing.Size(75, 51);
 			this.sendButton.TabIndex = 6;
@@ -146,7 +147,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(645, 508);
+			this.ClientSize = new System.Drawing.Size(645, 541);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.publicKeyTextBox);
